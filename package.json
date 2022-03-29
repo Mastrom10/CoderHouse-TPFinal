@@ -1,0 +1,27 @@
+{
+  "name": "coderhouse-tpfinal",
+  "version": "1.0.0",
+  "description": "TP Final Nicolas Mastromarino Coderhouse Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mastrom10/CoderHouse-TPFinal.git"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "Nicolas Mastromarino",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Mastrom10/CoderHouse-TPFinal/issues"
+  },
+  "homepage": "https://github.com/Mastrom10/CoderHouse-TPFinal#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
