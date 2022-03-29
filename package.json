@@ -22,6 +22,10 @@
   },
   "homepage": "https://github.com/Mastrom10/CoderHouse-TPFinal#readme",
   "dependencies": {
-    "express": "^4.17.3"
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "firebase": "^9.5.0",
+    "mongodb": "^4.2.0",
+    "path": "^0.12.7"
   }
 }
