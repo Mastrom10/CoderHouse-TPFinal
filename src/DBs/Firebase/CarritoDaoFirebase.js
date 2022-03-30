@@ -2,12 +2,10 @@ import Carrito from "../../entities/Carrito.js";
 
 // import firebase
 import { initializeApp} from 'firebase/app';
-import { getFirestore } from "firebase/firestore"
-import { collection, doc, setDoc, updateDoc, deleteDoc, getDocsFromServer, getDocFromServer} from "firebase/firestore";
+import { collection, doc, setDoc, updateDoc, deleteDoc, getDocsFromServer, getDocFromServer, getFirestore} from "firebase/firestore";
+import { config } from '../../../config.js'
 
-
-import { ServiceAccount } from "../../../coderhouse-9b562-firebase-adminsdk-6rcmc-c2690938b5.js";
-const app = initializeApp(ServiceAccount);
+const app = initializeApp(config.DB_Firebase.ServiceAccount);
 
 const db = getFirestore();
 

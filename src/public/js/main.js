@@ -1,7 +1,8 @@
 
+const ApiHost = 'https://nmastromarino-tpfinal-coder.herokuapp.com/api';
 
 function CargarProductos() {
-    fetch('http://localhost:8080/api/productos')
+    fetch(ApiHost + '/productos')
         .then(res => res.json())
         .then(data => {
             let html = '';
@@ -36,7 +37,7 @@ window.onload = function () {
 
 
 function CargarCarritos() {
-    fetch('http://localhost:8080/api/carrito')
+    fetch(ApiHost + '/carrito')
         .then(res => res.json())
         .then(data => {
             let html = '';
@@ -74,7 +75,7 @@ function borrarCarrito(id) {
 }
 
 function crearCarrito() {
-    fetch('http://localhost:8080/api/carrito', {
+    fetch(ApiHost + '/carrito', {
         method: 'POST'
     })
         .then(res => res.json())
@@ -110,7 +111,7 @@ function GuardarProducto(form) {
     }
 
     if (!form.id.value) {
-        fetch('http://localhost:8080/api/productos', {
+        fetch(ApiHost + '/productos', {
             method: 'POST',
             body: JSON.stringify(producto),
             headers: {
