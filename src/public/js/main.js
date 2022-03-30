@@ -65,7 +65,7 @@ function CargarCarritos() {
 }
 
 function borrarCarrito(id) {
-    fetch(`http://localhost:8080/api/carrito/${id}`, {
+    fetch(ApiHost + `/carrito/${id}`, {
         method: 'DELETE'
     })
         .then(res => res.json())
@@ -136,7 +136,7 @@ function GuardarProducto(form) {
             }
             ).catch(err => console.log(err))
     } else {
-        fetch(`http://localhost:8080/api/productos/${form.id.value}`, {
+        fetch(ApiHost + `/productos/${form.id.value}`, {
             method: 'PUT',
             body: JSON.stringify(producto),
             headers: {
@@ -178,7 +178,7 @@ function actualizarIDCarritoSeleccionado(id) {
 
 let CarritoSeleccionado = 0;
 function SeleccionarCarrito(id) {
-    fetch(`http://localhost:8080/api/carrito/${id}`)
+    fetch(ApiHost + `/carrito/${id}`)
         .then(res => res.json())
         .then(data => {
             let html = '';
@@ -210,7 +210,7 @@ function AgregarProductoCarritoSeleccionado(id) {
         alert('Selecciona un carrito');
         return;
     }
-    fetch(`http://localhost:8080/api/productos/${id}`, {
+    fetch(ApiHost + `/productos/${id}`, {
         method: 'GET'
     })
         .then(res => res.json())
@@ -224,7 +224,7 @@ function AgregarProductoCarritoSeleccionado(id) {
                 codigo: data.codigo,
                 stock: data.stock
             }
-            fetch(`http://localhost:8080/api/carrito/${CarritoSeleccionado}/productos`, {
+            fetch(ApiHost + `/carrito/${CarritoSeleccionado}/productos`, {
                 method: 'POST',
                 body: JSON.stringify(producto),
                 headers: {
@@ -251,7 +251,7 @@ function AgregarProductoCarritoSeleccionado(id) {
 }
 
 function QuitarProductoCarrito(id, idProducto) {
-    fetch(`http://localhost:8080/api/carrito/${id}/productos/${idProducto}`, {
+    fetch(ApiHost + `/carrito/${id}/productos/${idProducto}`, {
         method: 'DELETE'
     })
         .then(
@@ -274,7 +274,7 @@ function QuitarProductoCarrito(id, idProducto) {
 function EliminarProducto(id) {
     let admin = document.getElementById('adminCheck').checked;
 
-    fetch(`http://localhost:8080/api/productos/${id}`, {
+    fetch(ApiHost + `/productos/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
