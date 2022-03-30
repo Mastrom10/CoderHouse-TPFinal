@@ -4,6 +4,7 @@ import { config } from '../../../config.js'
 
 
 let MongoDB = config.DB_MongoDB;
+console.log(MongoDB);
 
 const client = new MongoClient(MongoDB.uri, { useNewUrlParser: true });
 
