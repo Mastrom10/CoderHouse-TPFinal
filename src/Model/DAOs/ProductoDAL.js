@@ -1,7 +1,7 @@
 import * as ProductoDaoArchivo from "./Archivo/ProductosDaoArchivo.js"
 import * as ProductoDaoMongoDB from "./MongoDB/ProductosDaoMongoDB.js"
 import * as ProductoFirebase from "./Firebase/ProductosDaoFirebase.js"
-import {config } from "../../config.js"
+import {config } from "../../../config.js"
 
 
 export default class ProductoDAL {

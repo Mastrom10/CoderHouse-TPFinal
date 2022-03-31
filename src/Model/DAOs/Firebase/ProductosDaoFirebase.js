@@ -8,7 +8,7 @@ import { initializeApp} from 'firebase/app';
 import { collection, doc, setDoc, updateDoc, deleteDoc, getDocsFromServer, getDocFromServer, getFirestore} from "firebase/firestore";
 
 
-import { config } from '../../../config.js'
+import { config } from '../../../../config.js'
 
 
 const app = initializeApp(config.DB_Firebase.ServiceAccount);

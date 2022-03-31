@@ -2,7 +2,7 @@
 import * as CarritoDaoArchivo from "./Archivo/CarritoDaoArchivo.js"
 import * as CarritoDaoMongoDB from "./MongoDB/CarritoDaoMongoDB.js"
 import * as CarritoDaoFirebase from "./Firebase/CarritoDaoFirebase.js"
-import { config } from '../../config.js'
+import { config } from '../../../config.js'
 
 
 export default class CarritoDAL {

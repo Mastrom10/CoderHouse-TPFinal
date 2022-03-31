@@ -1,6 +1,6 @@
 import Router from 'express';
-import Producto from '../entities/Producto.js';
-import ProductoDAL from '../DBs/ProductoDAL.js'
+import Producto from '../Model/entities/Producto.js';
+import ProductoDAL from '../Model/DAOs/ProductoDAL.js'
 import OnlyAdminsPrivilege from '../Middlewares/Autorizacion.js'
 
 const routerProductos = Router();

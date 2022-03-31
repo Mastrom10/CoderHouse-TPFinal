@@ -1,7 +1,7 @@
 
 import Producto from "../../entities/Producto.js";
 import { MongoClient } from 'mongodb'
-import { config } from '../../../config.js'
+import { config } from '../../../../config.js'
 
 
 let MongoDB = config.DB_MongoDB;

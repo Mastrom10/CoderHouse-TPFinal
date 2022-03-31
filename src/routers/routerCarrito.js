@@ -1,6 +1,6 @@
 import Router from 'express';
-import CarritoDAL from '../DBs/CarritoDAL.js'
-import Carrito from '../entities/Carrito.js';
+import CarritoDAL from '../Model/DAOs/CarritoDAL.js'
+import Carrito from '../Model/entities/Carrito.js';
 
 const routerCarrito = Router();
 
