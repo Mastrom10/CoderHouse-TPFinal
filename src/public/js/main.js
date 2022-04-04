@@ -1,10 +1,20 @@
 
-const entorno = "dev";
+const entorno = "Heroku";
 
 const ApiHost = entorno == 'dev' ? 'http://localhost:8080/api' : 'https://nmastromarino-tpfinal-coder.herokuapp.com/api';
+let admin = true;
+
+window.onload = function () {
+    CargarProductos();
+    CargarCarritos();
+}
 
 function CargarProductos() {
-    fetch(ApiHost + '/productos')
+    fetch(ApiHost + '/productos', {
+        headers: {
+            'esAdmin': admin
+        }
+    })
         .then(res => res.json())
         .then(data => {
             let html = '';
@@ -32,14 +42,15 @@ function CargarProductos() {
 
 }
 
-window.onload = function () {
-    CargarProductos();
-    CargarCarritos();
-}
+
 
 
 function CargarCarritos() {
-    fetch(ApiHost + '/carrito')
+    fetch(ApiHost + '/carrito',{
+        headers: {
+            'esAdmin': admin
+        }
+    })
         .then(res => res.json())
         .then(data => {
             let html = '';
@@ -68,7 +79,10 @@ function CargarCarritos() {
 
 function borrarCarrito(id) {
     fetch(ApiHost + `/carrito/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'esAdmin': admin
+        }
     })
         .then(res => res.json())
         .then(data => {
@@ -77,8 +91,12 @@ function borrarCarrito(id) {
 }
 
 function crearCarrito() {
+    admin = document.getElementById('adminCheck').checked;
     fetch(ApiHost + '/carrito', {
-        method: 'POST'
+        method: 'POST',
+        headers: {
+            'esAdmin': admin
+        }
     })
         .then(res => res.json())
         .then(data => {
@@ -101,7 +119,8 @@ function timeConverter(UNIX_timestamp) {
 
 
 function GuardarProducto(form) {
-    let admin = document.getElementById('adminCheck').checked;
+    admin = document.getElementById('adminCheck').checked;
+    console.log(admin);
     let producto = {
         id: form.id.value,
         nombre: form.nombre.value,
@@ -154,7 +173,7 @@ function GuardarProducto(form) {
                     if (res.status == 400) {
                         alert('Datos invalidos');
                     }
-                    return res.json()
+                    console.log(res.json());
                 }
             )
             .then(data => {
@@ -180,7 +199,11 @@ function actualizarIDCarritoSeleccionado(id) {
 
 let CarritoSeleccionado = 0;
 function SeleccionarCarrito(id) {
-    fetch(ApiHost + `/carrito/${id}`)
+    fetch(ApiHost + `/carrito/${id}`, {
+        headers: {
+            'esAdmin': admin
+        }
+    })
         .then(res => res.json())
         .then(data => {
             let html = '';
@@ -213,7 +236,10 @@ function AgregarProductoCarritoSeleccionado(id) {
         return;
     }
     fetch(ApiHost + `/productos/${id}`, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'esAdmin': admin
+        }
     })
         .then(res => res.json())
         .then(data => {
@@ -230,6 +256,7 @@ function AgregarProductoCarritoSeleccionado(id) {
                 method: 'POST',
                 body: JSON.stringify(producto),
                 headers: {
+                    'esAdmin': admin,
                     'Content-Type': 'application/json'
                 }
             })
@@ -254,7 +281,10 @@ function AgregarProductoCarritoSeleccionado(id) {
 
 function QuitarProductoCarrito(id, idProducto) {
     fetch(ApiHost + `/carrito/${id}/productos/${idProducto}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            'esAdmin': admin
+        }
     })
         .then(
             (res) => {

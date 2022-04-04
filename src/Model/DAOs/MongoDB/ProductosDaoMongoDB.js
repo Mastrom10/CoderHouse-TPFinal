@@ -1,66 +1,71 @@
-
-import Producto from "../../entities/Producto.js";
+import ProductoDTO from "../../DTOs/ProductoDTO.js";
 import { MongoClient } from 'mongodb'
-import { config } from '../../../../config.js'
+import config from '../../../../config.js'
 
+export default class ProductosDaoMongoDB {
 
-let MongoDB = config.DB_MongoDB;
-const client = new MongoClient(MongoDB.uri, { useNewUrlParser: true });
-
-await client.connect();
-
-const Producto_Collection = client.db(MongoDB.DB).collection(MongoDB.Producto_Collection);
-
-export function saveProducto(producto) {
-  Producto_Collection.insertOne(producto);
-}
-
-export async function getProductos() {
-  let productosJSON = await Producto_Collection.find().toArray();
-  let productos = [];
-  productosJSON.forEach(producto => {
-    productos.push(new Producto(producto.nombre, producto.descripcion, producto.codigo, producto.foto, producto.precio, producto.stock, producto.id, producto.timestamp));
+  constructor() {
+    this.ProductoDTO = new ProductoDTO();
+    this.MongoDB = config.DB_MongoDB;
+    this.client = new MongoClient(this.MongoDB.uri, { useNewUrlParser: true });
+    this.client.connect(() => {
+      this.Producto_Collection = this.client.db(this.MongoDB.DB).collection(this.MongoDB.Producto_Collection);
+    });
 
   }
-  );
 
-  return productos;
+  saveProducto(producto) {
+    return this.Producto_Collection.insertOne(this.ProductoDTO.toJSON(producto));
+  }
+
+  async getProductos() {
+    try {
+      let productosJSON = await this.Producto_Collection.find().toArray();
+      let productos = [];
+      productosJSON.forEach(producto => {
+        productos.push(this.ProductoDTO.fromJSON(producto));
+      }
+      );
+
+      return productos
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+
+  // Obtener un producto por Id
+  async getProductoById(id) {
+    let productoJSON = await this.Producto_Collection.findOne({ id: parseInt(id) });
+    return this.ProductoDTO.fromJSON(productoJSON);
+
+  }
+
+  //Obtener ID siguiente de los Productos
+  async getNextIdProducto() {
+    let productoJSON = await this.Producto_Collection.find().sort({ id: -1 }).limit(1).toArray();
+    let id = 0;
+    productoJSON.forEach(producto => {
+      if (producto.id > id) {
+        id = producto.id;
+      }
+    });
+    return id +1 ;
+
+  }
+
+  // Actualizar un producto del JSON
+  async updateProducto(producto) {
+    return await this.Producto_Collection.updateOne({ id: parseInt(producto.id) }, { $set: this.ProductoDTO.toJSON(producto) });
+  }
+
+  // Eliminar un producto del JSON por Id
+  async deleteProducto(id) {
+    return await this.Producto_Collection.deleteOne({ id: parseInt(id) });
+
+  }
+
+
+
 }
-
-
-// Obtener un producto por Id
-export async function getProductoById(id) {
-  let productoJSON = await Producto_Collection.findOne({ id: parseInt(id)  });
-  let producto = new Producto(productoJSON.nombre, productoJSON.descripcion, productoJSON.codigo, productoJSON.foto, productoJSON.precio, productoJSON.stock, productoJSON.id, productoJSON.timestamp);
-
-  return producto;
-
-}
-
-//Obtener ID siguiente de los Productos
-export async function getNextIdProducto() {
-  let productoJSON = await Producto_Collection.find().sort({ id: -1 }).limit(1).toArray();
-  let id = 0;
-  productoJSON.forEach(producto => {
-    id = producto.id + 1;
-  });
-  return id;
-  
-}
-
-// Actualizar un producto del JSON
-export function updateProducto(producto) {
-  Producto_Collection.updateOne(
-    { id: producto.id }, 
-    { $set: { nombre: producto.nombre, descripcion: producto.descripcion, codigo: producto.codigo, foto: producto.foto, precio: producto.precio, stock: producto.stock, timestamp: producto.timestamp } }
-  );
-}
-
-// Eliminar un producto del JSON por Id
-export function deleteProducto(id) {
-  Producto_Collection.deleteOne({ id: parseInt(id)  });
-
-}
-
-
-

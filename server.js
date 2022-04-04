@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static('src/public'))
 
 /* Routers */
-app.use('/api/carrito', routerCarrito)
-app.use('/api/productos', routerProductos)
+app.use('/api/carrito', new routerCarrito().getRouter())
+app.use('/api/productos', new routerProductos().getRouter())
 app.use('/*', ErrorHandling)
 
 

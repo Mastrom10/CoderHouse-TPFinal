@@ -1,8 +1,8 @@
 
 
-export const config = {
+const config = {
     //Archivo, MongoDB, Firebase
-    DB_Type: 'Firebase',
+    DB_Type: 'MongoDB',
     DB_Archivo: {
         Carrito_Json_Path: './src/DBs/Archivo/carrito.json',
         Producto_Json_Path: './src/DBs/Archivo/producto.json'
@@ -25,5 +25,8 @@ export const config = {
             appId: "1:411814913968:web:a3c282fe4491b6ec3b9875"
 
         }
-    }
+    },
+    JWT_SECRET: 'merluza23'
 }
+
+export default config;

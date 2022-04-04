@@ -1,3 +1,7 @@
+import Joi from 'joi';
+import Producto  from './Producto.js';
+import ProductoDTO from '../DTOs/ProductoDTO.js';
+
 export default class Carrito {
 //constructor estructura: id, timestamp(carrito), producto: [{ id, timestamp(producto), nombre, descripcion, código, foto (url), precio, stock }]
 
@@ -7,11 +11,38 @@ export default class Carrito {
         this.id = id;
         this.timestamp = timestamp;
         this.productos = productos;
+        this.ProductoDTO = new ProductoDTO();
     }
+    
+    equals(otroCarrito) {
+        if(this.id != otroCarrito.id) {
+            return false;
+        }
+        if(this.timestamp != otroCarrito.timestamp) {
+            return false;
+        }
+        return true;
+    }
+
+    static Validar(carritoEnJson) {
+        const schema = Joi.object().keys({
+            id: Joi.number().integer().min(0).required(),
+            timestamp: Joi.date(),
+            productos: Joi.array().items(Producto.Validar)
+        });
+        const { error, value } = schema.validate(carritoEnJson);
+
+        if (error) {
+            throw error;
+        }
+        return value;
+    }
+
 
     //agregar Producto
     agregarProducto(producto) {
-        this.productos.push(producto);
+        Producto.Validar(producto);
+        this.productos.push( this.ProductoDTO.fromJSON(producto) );
     }
 
     //quitar producto
@@ -34,6 +65,7 @@ export default class Carrito {
     calcularCantidadProductos() {
         return this.productos.length;
     }
+
 
     
 

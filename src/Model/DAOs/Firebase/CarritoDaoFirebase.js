@@ -1,17 +1,21 @@
-import Carrito from "../../entities/Carrito.js";
-
 // import firebase
 import { initializeApp} from 'firebase/app';
 import { collection, doc, setDoc, updateDoc, deleteDoc, getDocsFromServer, getDocFromServer, getFirestore} from "firebase/firestore";
-import { config } from '../../../../config.js'
+import config from '../../../../config.js'
+import CarritoDTO from "../../DTOs/CarritoDTO.js";
 
-const app = initializeApp(config.DB_Firebase.ServiceAccount);
 
-const db = getFirestore();
+export default class CarritoDaoFirebase {
+
+    constructor() {
+    this.app = initializeApp(config.DB_Firebase.ServiceAccount);
+    this.db = getFirestore();
+    this.CarritoDTO = new CarritoDTO();
+    }
 
 // Guardar un carrito en el archivo JSON
-export const saveCarrito = (carrito) => {
-    setDoc(doc(db, "carritos", `${carrito.id}`), {
+saveCarrito = (carrito) => {
+    return setDoc(doc( this.db , "carritos", `${carrito.id}`), {
         id: carrito.id,
         timestamp: carrito.timestamp,
         productos: carrito.productos
@@ -27,27 +31,27 @@ export const saveCarrito = (carrito) => {
 
 
 // Obtener todos los carritos del archivo JSON
-export  const getCarritos = async () => {
-    const carritosFirestone = await getDocsFromServer(collection(db, "carritos"));
+getCarritos = async () => {
+    const carritosFirestone = await getDocsFromServer(collection( this.db , "carritos"));
     const carritos = [];
     carritosFirestone.forEach(carrito => {
-        carritos.push(new Carrito(carrito.data().id, carrito.data().timestamp, carrito.data().productos));
+        carritos.push(this.CarritoDTO.fromJSON(carrito.data()));
     });
     return carritos;
 }
 
 // Obtener un Carrito por ID del JSON
-export const getCarritoById = async (id) => {
-    const carritoFirestone = await getDocFromServer(doc(db, "carritos", `${id}`));
-    const carrito = new Carrito(carritoFirestone.data().id, carritoFirestone.data().timestamp, carritoFirestone.data().productos);
+getCarritoById = async (id) => {
+    const carritoFirestone = await getDocFromServer(doc( this.db , "carritos", `${id}`));
+    const carrito =  this.CarritoDTO.fromJSON(carritoFirestone.data());
     return carrito;
 }
 
 
 //Obtener ID maximo de los carritos
-export const getNextIdCarrito = async () => {
+getNextIdCarrito = async () => {
 
-    const carritosFirestone = await getDocsFromServer(collection(db, "carritos"));
+    const carritosFirestone = await getDocsFromServer(collection( this.db , "carritos"));
     if (carritosFirestone.length === 0) {
         return 1;
     }
@@ -62,8 +66,8 @@ export const getNextIdCarrito = async () => {
 }
 
 //Actualizar Carrito
-export const updateCarrito = (carrito) => {
-    updateDoc(doc(db, "carritos", `${carrito.id}`), {
+updateCarrito = (carrito) => {
+    return updateDoc(doc( this.db , "carritos", `${carrito.id}`), {
         id: carrito.id,
         timestamp: carrito.timestamp,
         productos: carrito.productos
@@ -77,12 +81,14 @@ export const updateCarrito = (carrito) => {
 }
 
 //Eliminar un producto del JSON
-export const deleteCarrito = (id) => {
-    deleteDoc(doc(db, "carritos", `${id}`))
+deleteCarrito = (id) => {
+    return deleteDoc(doc( this.db , "carritos", `${id}`))
     .then(function (docRef) {
         console.log("Document written with ID: ", docRef);
     })
     .catch(function (error) {
         console.error("Error adding document: ", error);
     });
+}
+
 }
