@@ -1,26 +1,44 @@
-import Router from 'express';
+import express from 'express'
+import ControladorAuth from '../controlador/ControladorAuth.js'
+import Passport from "passport";
+import { checkAuthentication } from '../Middlewares/Autorizacion.js'
 
-import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../../config.js';
 
-import  Passport  from 'passport';
+const router = express.Router()
 
-const routerAuth = Router();
+export default class RouterAuth {
 
-routerAuth.post('/login', (req, res, next) => {
-    Passport.authenticate('local', { session: false }, (err, user, info) => {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.status(401).json({ error: 1, descripcion: 'Usuario o contraseña incorrectos' });
-        }
-        req.login(user, { session: false }, (err) => {
-            if (err) {
-                return next(err);
-            }
-            const token = jwt.sign({ user }, JWT_SECRET);
-            return res.json({ user, token });
-        });
-    })(req, res, next);
-} );
+    constructor() {
+        this.controlador = new ControladorAuth();
+    }
+
+    getRouter() {
+        //router.post('/login', this.controlador.login);
+        router.post('/login', Passport.authenticate('login'), this.controlador.login);
+
+        router.post('/logout', this.controlador.logout);
+        //router.post('/register', this.controlador.register);
+        router.post('/signup', Passport.authenticate('signup'), this.controlador.register);
+        //info user
+        router.get('/info', this.controlador.info);
+        // Login via JWT
+        router.get('/loginJWT', Passport.authenticate('jwt'), (req, res) => {
+            res.send('LoggedIn Successfully via JWT'); 
+        })
+        //test protected route
+        router.get('/protected', checkAuthentication, (req, res) => {
+            res.send('protected route checkAuthentication');
+        })
+
+        return router;
+    }
+}
+
+
+
+
+
+
+
+
+

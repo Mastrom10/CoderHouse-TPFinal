@@ -1,6 +1,6 @@
 import express from 'express'
 import ControladorCarrito from '../controlador/ControladorCarrito.js'
-import OnlyAdminsPrivilege from '../Middlewares/Autorizacion.js'
+import {OnlyAdminsPrivilege} from '../Middlewares/Autorizacion.js'
 
 const router = express.Router()
 

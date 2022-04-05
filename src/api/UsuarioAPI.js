@@ -1,5 +1,5 @@
 import getUsuarioDAO from '../Model/DAOs/UsuarioFactory.js';
-
+import Usuario from '../Model/models/Usuario.js';
 
 export default class UsuarioAPI {
 
@@ -7,35 +7,27 @@ export default class UsuarioAPI {
         this.dao = getUsuarioDAO();
     }
 
-    async saveUsuario(usuario) {
-        this.dao.saveUsuario(usuario);
+    getUserByEmail(email) {
+        return this.dao.getUserByEmail(email);
     }
 
-    async getUsuarios() {
-        return await this.dao.getUsuarios();
+    getUserById(id) {
+        return this.dao.getUserById(id);
     }
 
-    async getUsuarioById(id) {
-        return await this.dao.getUsuarioById(id);
+    async createUser(usuario) {
+        if (!usuario.id) {
+            usuario.id = await this.dao.getNextIdUsuario();
+        }
+        if (!usuario.hashPassword) {
+            usuario.hashPassword = Usuario.createHash(usuario.password);
+        }
+        const usuarioOBJ = Usuario.fromJSON(usuario);
+        let resultado = await this.dao.saveUsuario(usuarioOBJ);
+        return usuarioOBJ;
     }
 
-    async getNextIdUsuario() {
-        return await this.dao.getNextIdUsuario();
-    }   
-
-    async getUsuariosByEmail(usuario) {
-        return await this.dao.getUsuariosByEmail(usuario.email);
-    }
-
-    async updateUsuario(usuario) {
-        this.dao.updateUsuario(usuario);
-    }
-
-    async deleteUsuario(id) {
-        this.dao.deleteUsuario(id);
-    }
 
     
-
     
 }

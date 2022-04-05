@@ -1,4 +1,5 @@
-export default function OnlyAdminsPrivilege(req, res, next){
+
+function OnlyAdminsPrivilege(req, res, next){
     if (req.header('esAdmin') == 'true') {
         next();
     } else {
@@ -7,3 +8,14 @@ export default function OnlyAdminsPrivilege(req, res, next){
 }
 
 
+
+
+function checkAuthentication(req, res, next) {
+    if (req.isAuthenticated()) {
+      next();
+    } else {
+      res.redirect("/login");
+    }
+  }
+
+export {OnlyAdminsPrivilege, checkAuthentication};

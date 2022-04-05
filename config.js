@@ -1,8 +1,17 @@
+import dotenv from 'dotenv';
+import path from 'path';
 
+
+dotenv.config({
+    path: path.resolve(process.cwd(), process.env.NODE_ENV + '.env')
+});
 
 const config = {
+    NODE_ENV: process.env.NODE_ENV || 'development',
+    PORT: process.env.PORT || 8080,
+    HOST: process.env.HOST || 'localhost',
     //Archivo, MongoDB, Firebase
-    DB_Type: 'MongoDB',
+    DB_Type: process.env.DB_TYPE || 'MongoDB',
     DB_Archivo: {
         Carrito_Json_Path: './src/DBs/Archivo/carrito.json',
         Producto_Json_Path: './src/DBs/Archivo/producto.json'
@@ -12,7 +21,8 @@ const config = {
  */     uri: "mongodb+srv://admin:Merluza23@cluster0.vuapg.mongodb.net/TPFinalCoderHouse?retryWrites=true&w=majority",
         DB: 'TPFinalCoderHouse',
         Carrito_Collection: 'Carrito',
-        Producto_Collection: 'Producto'
+        Producto_Collection: 'Producto',
+        Usuario_Collection: 'usuarios'
     },
     DB_Firebase: {
         databaseURL: "https://ecommerce-6dfbf.firebaseio.com",
@@ -26,7 +36,19 @@ const config = {
 
         }
     },
-    JWT_SECRET: 'merluza23'
+    JWT_SECRET: 'merluza23',
+    JWT_EXPIRATION: '1h',
+    SESSION_CONFIG: {
+        secret: 'Merluza23',
+        cookie: {
+            httpOnly: false,
+            secure: false,
+            maxAge: parseInt(process.env.SESSION_EXPIRES) || 86400000// 1 day
+        },
+        rolling: true,
+        resave: true,
+        saveUninitialized: false
+    }
 }
 
 export default config;
