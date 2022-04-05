@@ -1,3 +1,13 @@
-export default function ErrorHandling(req, res, next) {
-    res.status(500).json({error:-2,descripcion:`Ruta ${req.originalUrl} no implementado.`});
-}
+
+
+function errorHandler(err, req, res, next) {
+    res.status(500);
+    res.render('error.ejs', { "error": err });
+  }
+
+  function notFoundHandler(req, res, next) {
+    res.status(404);
+    res.render('notFound.ejss');
+  }
+
+  export { errorHandler, notFoundHandler };

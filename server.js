@@ -6,7 +6,7 @@ import session from 'express-session';
 /* Dependencias Internas */
 import routerCarrito from './src/routers/routerCarrito.js';
 import routerProductos from './src/routers/routerProductos.js';
-import ErrorHandling from './src/Middlewares/ErrorHandling.js';
+import { errorHandler, notFoundHandler } from './src/Middlewares/ErrorHandling.js';
 import passport from './src/Middlewares/PassportSetUp.js';
 import routerAuth from './src/routers/routerAuth.js';
 import routerViews from './src/routers/routerViews.js';
@@ -38,7 +38,8 @@ app.use('/api/productos', new routerProductos().getRouter())
 app.use('/api/auth', new routerAuth().getRouter())
 app.use('/', new routerViews().getRouter()) //Para las vistas
 
-app.use('/*', ErrorHandling)
+app.use('/*', notFoundHandler);
+app.use(errorHandler)
 
 
 
