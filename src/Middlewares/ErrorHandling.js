@@ -7,7 +7,7 @@ function errorHandler(err, req, res, next) {
 
   function notFoundHandler(req, res, next) {
     res.status(404);
-    res.render('notFound.ejss');
+    res.render('notFound.ejs');
   }
 
   export { errorHandler, notFoundHandler };

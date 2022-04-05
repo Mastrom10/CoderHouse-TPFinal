@@ -25,6 +25,7 @@ app.use(session(config.SESSION_CONFIG))
 app.use(passport.initialize());
 app.use(passport.session());
 
+/* view engine setup */
 app.set('views', './src/views');
 app.set('view engine', 'pug');
 app.set('view engine', 'ejs');
@@ -38,15 +39,10 @@ app.use('/api/productos', new routerProductos().getRouter())
 app.use('/api/auth', new routerAuth().getRouter())
 app.use('/', new routerViews().getRouter()) //Para las vistas
 
+
+/* Error Handling */
 app.use('/*', notFoundHandler);
 app.use(errorHandler)
-
-
-
-
-
-
-
 
 
 /* Iniciamos el Servidor */
