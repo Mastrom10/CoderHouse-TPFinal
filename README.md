@@ -23,6 +23,24 @@ Ambas rutas, devuelve un JWT que será utilizado para autenticar las siguientes 
 
 El password en ningun momento se guarda, se ofusca mediante la libreria bcrypt, antes de almacenarse en la base de datos.
 
+Se devuelve codigo 406 (no acceptable) en caso de que durante el registro, el mail ya exista.
+
+
+### Envio de Mails
+
+se envian a traves de GMAIL
+se creó una cuenta en GMAIL para poder enviar mails.
+coderhouse.nmastromarino@gmail.com
+
+Luego de registrar un usuario, se le envia un mail con los datos de su cuenta.
+
+
+### Chat via WebSockets. 
+
+Podemos acceder al chat en /chat
+
+para poder chatear, debemos estár logueados con una session activa, por lo que primero debemos hacer login via JWT (en la misma pagina), o en /login.
+
 ### Ambiente
 
 El servidor esta configurado para ejecutarse en ambiente de Produccion y desarrollo.
@@ -32,4 +50,7 @@ tambien podemos lanzar el servidor en modo de desarrollo con "npm run dev" o en 
 
 ### Ver configuraciones del servidor
 en la ruta "/serverInfo" se puede ver la configuracion del servidor. es una vista generada con PUG.
+
+
+
 

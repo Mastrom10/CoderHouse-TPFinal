@@ -29,6 +29,10 @@ class routerViews {
         router.get('/serverInfo', (req, res) => {
             res.render('serverInfo.pug', {ServerInfo})
         });
+        router.get('/chat', checkAuthentication, (req, res) => {res.render('chat.ejs')});
+        router.get('/login', (req, res) => {res.render('login.ejs')});  
+        router.get('/index', checkAuthentication, (req, res) => {res.render('index.ejs')});
+        router.get('/', checkAuthentication,  (req, res) => {res.render('index.ejs')});
         return router;
     }
 

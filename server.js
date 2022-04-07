@@ -1,7 +1,8 @@
 /* Dependencias Externas*/
 import express from 'express';
 import session from 'express-session';
-
+import {Server as IOServer} from 'socket.io';
+import http from 'http';
 
 /* Dependencias Internas */
 import routerCarrito from './src/routers/routerCarrito.js';
@@ -12,8 +13,15 @@ import routerAuth from './src/routers/routerAuth.js';
 import routerViews from './src/routers/routerViews.js';
 import config from './config.js';
 
+import WebsocketChatHandler from './src/Middlewares/WebsocketChat.js';
+
 //servidor express
 const app = express();
+const httpServer = http.createServer(app);
+
+/* Configuracion de Chat */
+const io = new IOServer(httpServer);
+io.on('connection', WebsocketChatHandler);
 
 
 /* Middlewares */
@@ -47,7 +55,7 @@ app.use(errorHandler)
 
 /* Iniciamos el Servidor */
 const PORT = process.env.PORT || 8080
-const server = app.listen(PORT, () => {
+const server = httpServer.listen(PORT, () => {
    console.log(`Servidor escuchando en el puerto ${server.address().port}`)
 })
 server.on("error", error => console.log(`Error en servidor ${error}`))

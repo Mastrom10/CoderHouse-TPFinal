@@ -16,9 +16,9 @@ export default class RouterAuth {
         //router.post('/login', this.controlador.login);
         router.post('/login', Passport.authenticate('login'), this.controlador.login);
 
-        router.post('/logout', this.controlador.logout);
+        router.get('/logout', this.controlador.logout);
         //router.post('/register', this.controlador.register);
-        router.post('/signup', Passport.authenticate('signup'), this.controlador.register);
+        router.post('/signup', Passport.authenticate('signup', {failWithError:true}), this.controlador.register);
         //info user
         router.get('/info', this.controlador.info);
         // Login via JWT

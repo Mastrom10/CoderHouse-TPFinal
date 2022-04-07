@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <script src='/socket.io/socket.io.js'></script>
+
+    <title>Socket</title>
+</head>
+
+<body class="container">
+    <h1>Portal de chat entre usuarios</h1>
+    <!-- formulario para chat, con mail -->
+    <form id="formChat">
+        <p>Si no iniciaste sesion, podes hacerlo mediante un JWT.</p>
+        <input type="text" name="JWT" id="JWT" placeholder="JWT">
+        <input type="button"  value="Join Chat" class="btn btn-primary" onclick="JoinChat()">
+        <br>
+        <p>Si no tenés un JWT, primero deberás ir al Login para iniciar sesion</p>
+        <a href="/login" class="btn btn-primary">ir a Login</a> 
+        <br>
+        <h2>Chat</h2>
+        <input type="text" name="emailto" placeholder="Para...">
+        <input type="text" id="txtMensaje" placeholder="Escribe tu mensaje">
+        <input type="button" id="btnEnviar" class="btn btn-primary" value="Enviar" onclick="EnviarMensaje()">
+    </form>
+    <div id="divChat">
+        <ul id="ulChat">
+            <li>
+                <span></span>
+            </li>
+        </ul>
+    </div>
+
+    <script src="js/entorno.js"></script>
+    <script src='/js/chat.js'></script>
+</body>
+
+</html>

@@ -36,7 +36,7 @@ Passport.use('signup', new LocalStrategy({
         try {
             const user = await userAPI.getUserByEmail(email);
             if (user) {
-                return done(null, false, { message: 'That email is already taken.' });
+                return done({error: 406, message: 'That email is already taken.' });
             }
             const newUser = await userAPI.createUser(req.body);
             console.log(newUser);

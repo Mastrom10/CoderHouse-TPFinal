@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <title>Login</title>
+</head>
+
+<body class="container">
+    <h1>Portal de Login</h1>
+
+    <form id="formLoginRegister">
+        <h3 class="text-center"  id="tituloLogin">Login</h3>
+        <h3 class="text-center" id="tituloRegistro" style="display: none;">Registro Nuevo Usuario</h3>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+        </div>
+        <div class="form-group mt-2">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <!-- form group nombre -->
+        <div id="campoNombre" class="form-group mt-2" style="display: none;">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+        </div>
+        <!-- form group apellido -->
+        <div id="campoApellido" class="form-group mt-2" style="display: none;">
+            <label for="apellido">Apellido</label>
+            <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido">
+        </div>
+        <!-- button calcelar registo -->
+        <div class="form-group mt-2" id="botonesRegistro" style="display: none;">
+            <button type="button" class="btn btn-success" id="btnRegistro" onclick="Registro()">Registrar</button>
+            <button type="button" class="btn btn-danger ms-1" id="btnCancelarRegistro" onclick="ocultarRegistro()">Cancelar</button>
+        </div>
+
+        <div class="form-group mt-2" id="botonesLogin" >
+        <button type="button" class="btn btn-primary" id="btnLogin" onclick="Login()">Iniciar Sesion</button>
+        <button type="button" class="btn" onclick="mostrarRegistro()">Registrar Nueva Cuenta</button>
+         </div>
+    </form>
+
+    <script src="/js/entorno.js"></script>
+    <script src='/js/login.js'></script>
+</body>
+
+</html>

@@ -1,8 +1,6 @@
-
-const entorno = "Heroku";
-
-const ApiHost = entorno == 'dev' ? 'http://localhost:8080/api' : 'https://nmastromarino-tpfinal-coder.herokuapp.com/api';
 let admin = true;
+
+
 
 window.onload = function () {
     CargarProductos();
@@ -41,9 +39,6 @@ function CargarProductos() {
         });
 
 }
-
-
-
 
 function CargarCarritos() {
     fetch(ApiHost + '/carrito',{
@@ -117,7 +112,6 @@ function timeConverter(UNIX_timestamp) {
     return time;
 }
 
-
 function GuardarProducto(form) {
     admin = document.getElementById('adminCheck').checked;
     console.log(admin);
@@ -185,12 +179,10 @@ function GuardarProducto(form) {
     return false;
 }
 
-
 function ToggleFormCrearProducto() {
     document.getElementById('CrearProducto').classList.toggle('d-none');
     document.getElementById("btntoggleProducto").innerHTML = document.getElementById("btntoggleProducto").innerHTML == 'Crear' ? 'Cancelar' : 'Crear';
 }
-
 
 function actualizarIDCarritoSeleccionado(id) {
     document.getElementById('idCarritoSeleccionado').innerHTML = id;
