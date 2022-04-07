@@ -39,8 +39,6 @@ app.set('view engine', 'pug');
 app.set('view engine', 'ejs');
 
 
-
-
 /* Routers */
 app.use('/api/carrito', new routerCarrito().getRouter())
 app.use('/api/productos', new routerProductos().getRouter())

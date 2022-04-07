@@ -18,7 +18,11 @@ function Login() {
             'Content-Type': 'application/json'
         }
 
-    }).then(res => res.json())
+    }).then((res) => {
+        if (res.status === 401) {
+            alert("Usuario o contraseña incorrectos");
+        }
+        return res.json()})
         .then(res => {
             if (res.error) {
                 alert(res.error)
