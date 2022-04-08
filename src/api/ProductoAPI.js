@@ -6,7 +6,6 @@ export default class ProductoAPI {
 
     constructor() {
         this.dao = getProductoDAO();
-        this.ProductoDTO = new ProductoDTO();
     }
 
     async getProductos() {
@@ -21,7 +20,7 @@ export default class ProductoAPI {
         if (!producto.id) {
             producto.id = await this.dao.getNextIdProducto();
         }
-        const productoOBJ = this.ProductoDTO.fromJSON(producto);
+        const productoOBJ = ProductoDTO.fromJSON(producto);
         console.log(productoOBJ);
 
         this.ValidarProducto(productoOBJ);

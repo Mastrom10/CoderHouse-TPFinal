@@ -2,14 +2,12 @@ import Usuario from '../models/Usuario.js';
 
 export default class UsuarioDTO {
 
-    constructor() { }
-
-    fromJSON(json) {
+    static fromJSON(json) {
         return new Usuario(json.nombre, json.apellido, json.email, json.hashPassword, json.id);
 
     }
 
-    toJSON(usuario) {
+    static toJSON(usuario) {
         return {
             id: parseInt(usuario.id),
             nombre: usuario.nombre,
@@ -18,7 +16,7 @@ export default class UsuarioDTO {
             hashPassword: usuario.hashPassword
         };
     }
-    toJSONsinPassword(usuario) {
+    static toJSONsinPassword(usuario) {
         return {
             id: parseInt(usuario.id),
             nombre: usuario.nombre,

@@ -1,4 +1,4 @@
 
-const entorno = "Heroku";
+const entorno = "HEROKU";
 
 const ApiHost = entorno == 'dev' ? 'http://localhost:8080/api' : 'https://nmastromarino-tpfinal-coder.herokuapp.com/api';

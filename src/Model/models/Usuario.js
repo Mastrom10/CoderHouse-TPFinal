@@ -36,7 +36,7 @@ export default class Usuario {
             nombre: Joi.string().min(3).max(50).required(),
             apellido: Joi.string().min(3).max(50).required(),
             email: Joi.string().min(3).max(50).required(),
-            hashPassword: Joi.string().min(3).max(50).required()
+            hashPassword: Joi.string().min(3).max(150).required()
         });
         const { error, value } = schema.validate(usuarioEnJson);
 

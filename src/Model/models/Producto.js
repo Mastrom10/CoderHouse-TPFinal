@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import ProductoDTO from '../DTOs/ProductoDTO.js';
 
 
 export default class Producto {
@@ -58,6 +59,16 @@ export default class Producto {
         }
         return value;
     }
+
+    fromJSON(json) {
+        return ProductoDTO.fromJSON(json);
+    }
+
+    toJSON() {
+        return ProductoDTO.toJSON(this);
+    }
+    
+
     
 
     

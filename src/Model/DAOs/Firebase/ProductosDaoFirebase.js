@@ -14,7 +14,6 @@ export default class ProductosDaoFirebase{
   constructor() {
     this.app = initializeApp(config.DB_Firebase.ServiceAccount);
     this.db = getFirestore();
-    this.ProductoDTO = new ProductoDTO();
   }
 
   saveProducto(producto) {
@@ -44,7 +43,7 @@ export default class ProductosDaoFirebase{
     const productosFirestone = await getDocsFromServer(collection(this.db, "productos"));
     const productos = [];
     productosFirestone.forEach(producto => {
-      productos.push(this.ProductoDTO.fromJSON(producto.data()));
+      productos.push(ProductoDTO.fromJSON(producto.data()));
      });
     return productos;
   }
@@ -53,7 +52,7 @@ export default class ProductosDaoFirebase{
   // Obtener un producto por Id
   async getProductoById(id) {
     const productoFirestone = await getDocFromServer(doc(this.db, "productos", `${id}`));
-    return this.ProductoDTO.fromJSON(productoFirestone.data());
+    return ProductoDTO.fromJSON(productoFirestone.data());
 
   }
 

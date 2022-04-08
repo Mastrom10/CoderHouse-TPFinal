@@ -8,7 +8,6 @@ export default class CarritoDaoMongoDB {
     constructor() {
         this.MongoDB = config.DB_MongoDB;
         this.client = new MongoClient(this.MongoDB.uri, { useNewUrlParser: true });
-        this.CarritoDTO = new CarritoDTO();
         this.client.connect(() => {
             this.Carrito_Collection = this.client.db(this.MongoDB.DB).collection(this.MongoDB.Carrito_Collection);
         } );
@@ -26,7 +25,7 @@ export default class CarritoDaoMongoDB {
         let carritos = [];
         if (carritosJSON.length > 0) {
             carritosJSON.forEach(carrito => {
-                carritos.push(this.CarritoDTO.fromJSON(carrito));
+                carritos.push(CarritoDTO.fromJSON(carrito));
             });
         } else {
             return null;
@@ -38,7 +37,7 @@ export default class CarritoDaoMongoDB {
     getCarritoById = async (id) => {
         try {
             let carritoJSON = await this.Carrito_Collection.findOne({ id: parseInt(id) });
-            let carrito = this.CarritoDTO.fromJSON(carritoJSON);
+            let carrito = CarritoDTO.fromJSON(carritoJSON);
             return carrito;
         } catch (error) {
             console.log(error);

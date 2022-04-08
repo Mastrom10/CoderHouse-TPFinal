@@ -39,6 +39,9 @@ Luego de registrar un usuario, se le envia un mail con los datos de su cuenta.
 
 Podemos acceder al chat en /chat
 
+El chat se conecta a traves de WebSockets.
+Podemos chatear con otro usuario, indicando el mail del usuario al que queremos chatear.
+
 para poder chatear, debemos estár logueados con una session activa, por lo que primero debemos hacer login via JWT (en la misma pagina), o en /login.
 
 ### Ambiente

@@ -18,11 +18,12 @@ const config = {
     },
     DB_MongoDB: {
 /*         uri : "mongodb://localhost:27017/ecommerce",
- */     uri: "mongodb+srv://admin:Merluza23@cluster0.vuapg.mongodb.net/TPFinalCoderHouse?retryWrites=true&w=majority",
+ */     uri: process.env.DB_URI || "mongodb+srv://admin:Merluza23@cluster0.vuapg.mongodb.net/TPFinalCoderHouse?retryWrites=true&w=majority",
         DB: 'TPFinalCoderHouse',
         Carrito_Collection: 'Carrito',
         Producto_Collection: 'Producto',
-        Usuario_Collection: 'usuarios'
+        Usuario_Collection: 'usuarios',
+        Orden_Collection: 'Orden'
     },
     DB_Firebase: {
         databaseURL: "https://ecommerce-6dfbf.firebaseio.com",
@@ -48,7 +49,15 @@ const config = {
         rolling: true,
         resave: true,
         saveUninitialized: false
+    },
+    MAIL_CONFIG: {
+        service: 'gmail',
+        auth: {
+            user: process.env.ADMIN_MAIL || 'coderhouse.nmastromarino@gmail.com',
+            pass: process.env.ADMIN_PASS || 'Merluza23'
+        }
     }
+
 }
 
 export default config;

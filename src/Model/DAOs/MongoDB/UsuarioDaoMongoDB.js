@@ -5,7 +5,6 @@ import config from '../../../../config.js'
 export default class UsuarioDaoMongoDB {
 
   constructor() {
-    this.UsuarioDTO = new UsuarioDTO();
     this.MongoDB = config.DB_MongoDB;
     this.client = new MongoClient(this.MongoDB.uri, { useNewUrlParser: true });
     this.client.connect(() => {
@@ -17,7 +16,7 @@ export default class UsuarioDaoMongoDB {
   async getUserByEmail(email) {
     let usuarioJSON = await this.Usuario_Collection.findOne({ email: email });
     if (usuarioJSON) {
-      return this.UsuarioDTO.fromJSON(usuarioJSON);
+      return UsuarioDTO.fromJSON(usuarioJSON);
     } else {
       return null;
     }
@@ -26,11 +25,11 @@ export default class UsuarioDaoMongoDB {
 
   async getUserById(id) {
     let usuarioJSON = await this.Usuario_Collection.findOne({ id: parseInt(id) });
-    return this.UsuarioDTO.fromJSON(usuarioJSON);
+    return UsuarioDTO.fromJSON(usuarioJSON);
   }
 
   async saveUsuario(usuario) {
-    return await this.Usuario_Collection.insertOne(this.UsuarioDTO.toJSON(usuario));
+    return await this.Usuario_Collection.insertOne(UsuarioDTO.toJSON(usuario));
   }
 
   async getNextIdUsuario() {

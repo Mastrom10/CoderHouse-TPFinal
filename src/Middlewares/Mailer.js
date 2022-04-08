@@ -1,16 +1,11 @@
 import nodemailer from 'nodemailer';
+import config from '../../config.js';
 
 export default class Mailer {
 
     constructor() {
-        this.transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-               user: 'coderhouse.nmastromarino@gmail.com',
-               pass: 'Merluza23'
-            }
-      })
-        this.from = 'coderhouse.nmastromarino@gmail.com'
+        this.transporter = nodemailer.createTransport(config.MAIL_CONFIG);
+        this.from = config.MAIL_CONFIG.auth.user;
     }
 
     async sendMail(to, subject, text) {

@@ -3,9 +3,6 @@ import fs from 'fs';
 
 export default class CarritoDaoArchivo {
 
-    constructor() { 
-        this.CarritoDTO = new CarritoDTO();
-    }
 
     // Guardar un carrito en el archivo JSON
     saveCarrito = (carrito) => {
@@ -21,7 +18,7 @@ export default class CarritoDaoArchivo {
         let carritosJson = JSON.parse(fs.readFileSync('./src/DBs/Archivo/carrito.json').toString());
         let carritos = [];
         carritosJson.forEach(carrito => {
-            carritos.push(this.CarritoDTO.fromJSON(carrito));
+            carritos.push(CarritoDTO.fromJSON(carrito));
         });
         return carritos;
     }
@@ -31,7 +28,7 @@ export default class CarritoDaoArchivo {
         let carritos = this.getCarritos();
         let carrito = carritos.find(carrito => carrito.id == id);
         if (carrito) {
-            return this.CarritoDTO.fromJSON(carrito);
+            return CarritoDTO.fromJSON(carrito);
         } else {
             return null;
         }

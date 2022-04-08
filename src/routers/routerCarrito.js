@@ -12,12 +12,12 @@ export default class RouterCarrito {
     
         getRouter() {
             router.get('/:id?', this.controlador.getCarritoByIdOrAll);
-            router.post('/', OnlyAdminsPrivilege, this.controlador.saveCarrito);
-            router.put('/:id', OnlyAdminsPrivilege, this.controlador.updateCarrito);
-            router.delete('/:id', OnlyAdminsPrivilege, this.controlador.deleteCarrito);
+            router.post('/', this.controlador.saveCarrito);
+            router.put('/:id', this.controlador.updateCarrito);
+            router.delete('/:id', this.controlador.deleteCarrito);
             router.get('/:id/productos', this.controlador.getProductosByCarritoId);
-            router.post('/:id/productos', OnlyAdminsPrivilege, this.controlador.addProductoToCarrito);
-            router.delete('/:id/productos/:idProducto', OnlyAdminsPrivilege, this.controlador.deleteProductoFromCarrito);
+            router.post('/:id/productos', this.controlador.addProductoToCarrito);
+            router.delete('/:id/productos/:idProducto', this.controlador.deleteProductoFromCarrito);
             return router;
         }
 

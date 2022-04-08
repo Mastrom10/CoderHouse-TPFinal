@@ -11,7 +11,6 @@ export default class Carrito {
         this.id = id;
         this.timestamp = timestamp;
         this.productos = productos;
-        this.ProductoDTO = new ProductoDTO();
     }
     
     equals(otroCarrito) {
@@ -33,6 +32,8 @@ export default class Carrito {
         const { error, value } = schema.validate(carritoEnJson);
 
         if (error) {
+            console.log(error);
+
             throw error;
         }
         return value;
@@ -42,7 +43,7 @@ export default class Carrito {
     //agregar Producto
     agregarProducto(producto) {
         Producto.Validar(producto);
-        this.productos.push( this.ProductoDTO.fromJSON(producto) );
+        this.productos.push( ProductoDTO.fromJSON(producto) );
     }
 
     //quitar producto

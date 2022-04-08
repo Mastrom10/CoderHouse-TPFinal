@@ -8,9 +8,11 @@ import http from 'http';
 import routerCarrito from './src/routers/routerCarrito.js';
 import routerProductos from './src/routers/routerProductos.js';
 import { errorHandler, notFoundHandler } from './src/Middlewares/ErrorHandling.js';
+import { checkAuthentication } from './src/Middlewares/Autorizacion.js';
 import passport from './src/Middlewares/PassportSetUp.js';
 import routerAuth from './src/routers/routerAuth.js';
 import routerViews from './src/routers/routerViews.js';
+import RouterOrden from './src/routers/routerOrden.js';
 import config from './config.js';
 
 import WebsocketChatHandler from './src/Middlewares/WebsocketChat.js';
@@ -40,9 +42,10 @@ app.set('view engine', 'ejs');
 
 
 /* Routers */
-app.use('/api/carrito', new routerCarrito().getRouter())
-app.use('/api/productos', new routerProductos().getRouter())
+app.use('/api/carrito', checkAuthentication, new routerCarrito().getRouter())
+app.use('/api/productos', checkAuthentication, new routerProductos().getRouter())
 app.use('/api/auth', new routerAuth().getRouter())
+app.use('/api/orden', checkAuthentication, new RouterOrden().getRouter())
 app.use('/', new routerViews().getRouter()) //Para las vistas
 
 

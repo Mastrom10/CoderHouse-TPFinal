@@ -5,7 +5,6 @@ import config from '../../../../config.js'
 export default class ProductosDaoMongoDB {
 
   constructor() {
-    this.ProductoDTO = new ProductoDTO();
     this.MongoDB = config.DB_MongoDB;
     this.client = new MongoClient(this.MongoDB.uri, { useNewUrlParser: true });
     this.client.connect(() => {
@@ -15,7 +14,7 @@ export default class ProductosDaoMongoDB {
   }
 
   saveProducto(producto) {
-    return this.Producto_Collection.insertOne(this.ProductoDTO.toJSON(producto));
+    return this.Producto_Collection.insertOne(ProductoDTO.toJSON(producto));
   }
 
   async getProductos() {
@@ -23,7 +22,7 @@ export default class ProductosDaoMongoDB {
       let productosJSON = await this.Producto_Collection.find().toArray();
       let productos = [];
       productosJSON.forEach(producto => {
-        productos.push(this.ProductoDTO.fromJSON(producto));
+        productos.push(ProductoDTO.fromJSON(producto));
       }
       );
 
@@ -37,9 +36,17 @@ export default class ProductosDaoMongoDB {
 
   // Obtener un producto por Id
   async getProductoById(id) {
-    let productoJSON = await this.Producto_Collection.findOne({ id: parseInt(id) });
-    return this.ProductoDTO.fromJSON(productoJSON);
-
+    try {
+      let productoJSON = await this.Producto_Collection.findOne({ id: parseInt(id) });
+      if (productoJSON) {
+        return ProductoDTO.fromJSON(productoJSON);
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
   //Obtener ID siguiente de los Productos
@@ -57,7 +64,7 @@ export default class ProductosDaoMongoDB {
 
   // Actualizar un producto del JSON
   async updateProducto(producto) {
-    return await this.Producto_Collection.updateOne({ id: parseInt(producto.id) }, { $set: this.ProductoDTO.toJSON(producto) });
+    return await this.Producto_Collection.updateOne({ id: parseInt(producto.id) }, { $set: ProductoDTO.toJSON(producto) });
   }
 
   // Eliminar un producto del JSON por Id

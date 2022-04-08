@@ -10,7 +10,6 @@ export default class CarritoDaoFirebase {
     constructor() {
     this.app = initializeApp(config.DB_Firebase.ServiceAccount);
     this.db = getFirestore();
-    this.CarritoDTO = new CarritoDTO();
     }
 
 // Guardar un carrito en el archivo JSON
@@ -35,7 +34,7 @@ getCarritos = async () => {
     const carritosFirestone = await getDocsFromServer(collection( this.db , "carritos"));
     const carritos = [];
     carritosFirestone.forEach(carrito => {
-        carritos.push(this.CarritoDTO.fromJSON(carrito.data()));
+        carritos.push(CarritoDTO.fromJSON(carrito.data()));
     });
     return carritos;
 }
@@ -43,7 +42,7 @@ getCarritos = async () => {
 // Obtener un Carrito por ID del JSON
 getCarritoById = async (id) => {
     const carritoFirestone = await getDocFromServer(doc( this.db , "carritos", `${id}`));
-    const carrito =  this.CarritoDTO.fromJSON(carritoFirestone.data());
+    const carrito =  CarritoDTO.fromJSON(carritoFirestone.data());
     return carrito;
 }
 

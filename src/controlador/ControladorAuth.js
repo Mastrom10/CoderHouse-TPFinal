@@ -14,8 +14,7 @@ export default class ControladorAuth {
     
         login(req, res)  {
                 console.log(req.user);
-                const miUsuarioDTO = new UsuarioDTO();
-                const user = miUsuarioDTO.toJSONsinPassword(req.user);
+                const user = UsuarioDTO.toJSONsinPassword(req.user);
                 const token = jwt.sign({user}, config.JWT_SECRET);
                 user.token = token;
                 return res.json(user);
@@ -30,8 +29,7 @@ export default class ControladorAuth {
         }
     
         register(req, res) {
-            const miUsuarioDTO = new UsuarioDTO();
-            const user = miUsuarioDTO.toJSONsinPassword(req.user);
+            const user = UsuarioDTO.toJSONsinPassword(req.user);
             const token = jwt.sign({user}, config.JWT_SECRET);
             user.token = token;
             return res.json(user); 
@@ -39,8 +37,7 @@ export default class ControladorAuth {
 
         info(req, res) {
             if (req.user) {
-                const miUsuarioDTO = new UsuarioDTO();
-                const user = miUsuarioDTO.toJSONsinPassword(req.user);
+                const user = UsuarioDTO.toJSONsinPassword(req.user);
                 const token = jwt.sign({user}, config.JWT_SECRET);
                 user.token = token;
                 return res.json(user);
