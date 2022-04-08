@@ -3,7 +3,7 @@ import Usuario from '../models/Usuario.js';
 export default class UsuarioDTO {
 
     static fromJSON(json) {
-        return new Usuario(json.nombre, json.apellido, json.email, json.hashPassword, json.id);
+        return new Usuario(json.nombre, json.apellido, json.email, json.telefono, json.hashPassword, json.id);
 
     }
 
@@ -13,6 +13,7 @@ export default class UsuarioDTO {
             nombre: usuario.nombre,
             apellido: usuario.apellido,
             email: usuario.email,
+            telefono: usuario.telefono,
             hashPassword: usuario.hashPassword
         };
     }
@@ -22,6 +23,7 @@ export default class UsuarioDTO {
             nombre: usuario.nombre,
             apellido: usuario.apellido,
             email: usuario.email,
+            telefono: usuario.telefono
         };
     }
 

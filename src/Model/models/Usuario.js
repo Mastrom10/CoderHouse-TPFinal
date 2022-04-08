@@ -1,13 +1,15 @@
 import Joi from 'joi';
 import bCrypt from 'bcrypt';
+import UsuarioDTO from '../DTOs/UsuarioDTO.js';
 
 export default class Usuario {
 
-    constructor(nombre, apellido, email, hashPassword, id = 0) {
+    constructor(nombre, apellido, email, telefono, hashPassword, id = 0) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
+        this.telefono = telefono;
         this.hashPassword = hashPassword;
     }
 
@@ -24,6 +26,10 @@ export default class Usuario {
         if (this.email != otroUsuario.email) {
             return false;
         }
+        if (this.telefono != otroUsuario.telefono) {
+            return false;
+        }
+
         if (this.hashPassword != otroUsuario.hashPassword) {
             return false;
         }
@@ -36,7 +42,8 @@ export default class Usuario {
             nombre: Joi.string().min(3).max(50).required(),
             apellido: Joi.string().min(3).max(50).required(),
             email: Joi.string().min(3).max(50).required(),
-            hashPassword: Joi.string().min(3).max(150).required()
+            telefono: Joi.string().min(3).max(50).required(),
+            hashPassword: Joi.string().min(3).max(150)
         });
         const { error, value } = schema.validate(usuarioEnJson);
 
@@ -47,8 +54,8 @@ export default class Usuario {
         return value;
     }
 
-    static fromJSON(json) {
-        return new Usuario(json.nombre, json.apellido, json.email, json.hashPassword, json.id);
+    fromJSON(json) {
+       return UsuarioDTO.fromJSON(json);
     }
 
     isValidPassword(password) {

@@ -15,6 +15,12 @@ export default class ProductoAPI {
     async getProductoById(id) {
         return await this.dao.getProductoById(id);
     }
+    
+    //by categoria
+    async getProductosByCategoria(categoria) {
+        return await this.dao.getProductosByCategoria(categoria);
+    }
+
 
     async saveProducto(producto) {
         if (!producto.id) {

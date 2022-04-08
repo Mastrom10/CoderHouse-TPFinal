@@ -4,7 +4,7 @@ import ProductoDTO from '../DTOs/ProductoDTO.js';
 
 export default class Producto {
 
-    constructor(nombre, descripcion, codigo, foto, precio,stock = 0, id = 0, timestamp = Date.now()) {
+    constructor(nombre, descripcion, codigo, foto, precio, categoria, stock = 0, id = 0, timestamp = Date.now()) {
         this.id = id;
         this.timestamp = timestamp;
         this.nombre = nombre;
@@ -13,6 +13,7 @@ export default class Producto {
         this.foto = foto;
         this.precio = precio;
         this.stock = stock;
+        this.categoria = categoria;
     }
 
     equals(otroProducto) {
@@ -37,7 +38,9 @@ export default class Producto {
         if(this.precio != otroProducto.precio) {
             return false;
         }
+        if(this.categoria != otroProducto.categoria) {
         return true;
+        }
     }
 
     static Validar(productoEnJson) {
@@ -48,6 +51,7 @@ export default class Producto {
             descripcion: Joi.string().min(3).max(200).required(),
             codigo: Joi.string().min(3).max(50).required(),
             foto: Joi.string().min(3).max(200).required(),
+            categoria: Joi.string().min(3).max(50),
             precio: Joi.number().min(0).required(),
             stock: Joi.number().integer().min(0).required()
         });

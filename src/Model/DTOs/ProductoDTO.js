@@ -3,7 +3,7 @@ import Producto from "../models/Producto.js";
 export default class ProductoDTO {
 
     static fromJSON(json) {
-        return new Producto(json.nombre, json.descripcion, json.codigo, json.foto, json.precio, json.stock, json.id, json.timestamp);
+        return new Producto(json.nombre, json.descripcion, json.codigo, json.foto, json.precio, json.categoria, json.stock, json.id, json.timestamp);
 
     }
 
@@ -16,6 +16,7 @@ export default class ProductoDTO {
             codigo: producto.codigo,
             foto: producto.foto,
             precio: producto.precio,
+            categoria: producto.categoria,
             stock: producto.stock
         };
     }

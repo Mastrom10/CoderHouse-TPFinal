@@ -1,22 +1,30 @@
 import Joi from 'joi';
 import Producto  from './Producto.js';
 import ProductoDTO from '../DTOs/ProductoDTO.js';
+import Usuario from './Usuario.js';
 
 export default class Carrito {
 //constructor estructura: id, timestamp(carrito), producto: [{ id, timestamp(producto), nombre, descripcion, código, foto (url), precio, stock }]
 
     productos = [];
 
-    constructor(id = 0, timestamp = Date.now(), productos = []) {
+    constructor(user, id = 0, timestamp = Date.now(), productos = []) {
         this.id = id;
         this.timestamp = timestamp;
         this.productos = productos;
+        this.user = user;
     }
     
     equals(otroCarrito) {
+        if (this.user.id != otroCarrito.user.id) {
+            return false;
+        }
+
+        
         if(this.id != otroCarrito.id) {
             return false;
         }
+        
         if(this.timestamp != otroCarrito.timestamp) {
             return false;
         }
@@ -25,6 +33,7 @@ export default class Carrito {
 
     static Validar(carritoEnJson) {
         const schema = Joi.object().keys({
+            user: Usuario.Validar,
             id: Joi.number().integer().min(0).required(),
             timestamp: Joi.date(),
             productos: Joi.array().items(Producto.Validar)

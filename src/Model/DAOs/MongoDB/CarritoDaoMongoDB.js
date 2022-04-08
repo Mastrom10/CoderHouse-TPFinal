@@ -15,7 +15,7 @@ export default class CarritoDaoMongoDB {
 
     // Guardar un carrito en el archivo JSON
     saveCarrito = (carrito) => {
-        return this.Carrito_Collection.insertOne(carrito);
+        return this.Carrito_Collection.insertOne(CarritoDTO.toJSON(carrito));
     }
 
     // Obtener todos los carritos del archivo JSON

@@ -4,7 +4,8 @@ function getFormData(){
         email: document.getElementById('email').value,
         password: document.getElementById('password').value,
         nombre: document.getElementById('nombre').value,
-        apellido: document.getElementById('apellido').value
+        apellido: document.getElementById('apellido').value,
+        telefono: document.getElementById('telefono').value
     }
     return formData
 }
@@ -59,17 +60,21 @@ function mostrarRegistro() {
     id="campoApellido"
     id="campoNombre"
     id="tituloRegistro"
+    id="telefono"
     
     HIDE: 
     id="botonesLogin"
     id="tituloLogin"
     */
+
     document.getElementById('botonesRegistro').style.display = 'block';
     document.getElementById('botonesLogin').style.display = 'none';
     document.getElementById('campoApellido').style.display = 'block';
     document.getElementById('campoNombre').style.display = 'block';
     document.getElementById('tituloRegistro').style.display = 'block';
     document.getElementById('tituloLogin').style.display = 'none';
+    document.getElementById('campoTelefono').style.display = 'block';
+
 
 
 }
@@ -81,5 +86,7 @@ function ocultarRegistro(){
     document.getElementById('campoNombre').style.display = 'none';
     document.getElementById('tituloRegistro').style.display = 'none';
     document.getElementById('tituloLogin').style.display = 'block';
+    document.getElementById('campoTelefono').style.display = 'none';
+
 }
 

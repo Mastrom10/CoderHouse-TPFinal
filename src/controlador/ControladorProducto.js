@@ -27,6 +27,21 @@ class ControladorProducto {
     
     }
 
+    getProductosByCategoria = async (req, res) => {
+        let categoria = req.params.categoria;
+        if (categoria) {
+            let productos = await this.productoAPI.getProductosByCategoria(categoria)
+            if (productos) {
+                res.json(productos);
+            } else {
+                res.status(404).json({ "error": "No existen productos para mostrar" });
+            }
+        } else {
+            res.status(404).json({ "error": "No existen productos para mostrar" });
+        }
+    }
+    
+
     saveProducto = async (req, res) => {
         try {
             let productoEnJson = req.body;

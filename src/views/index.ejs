@@ -38,6 +38,7 @@
                     Productos 
                     <button type="button" class="btn btn-primary" id="btntoggleProducto" onclick="ToggleFormCrearProducto()">Crear</button>
                 </h2> 
+
                 <div class="row d-none" id="CrearProducto">
                     <div class="col-12">
                         <form action="#" onsubmit="return GuardarProducto(this);" >
@@ -64,6 +65,15 @@
                                 <input type="text" class="form-control" id="foto" name="foto" placeholder="Foto">
                                 <label for="foto">Foto</label>
                             </div>
+                            <!-- categoria -->
+                            <div class="form-floating mb-3">
+                                <select class="form-control" id="categoria" name="categoria">
+                                    <option value="">Categoria</option>
+                                    <option value="comida">Comida</option>
+                                    <option value="bebida">Bebidas</option>
+                                    <option value="postre">Postre</option>
+                                </select>
+                            </div>
                             <div class="form-floating mb-3">
                                 <input type="number" class="form-control" id="precio" name="precio" placeholder="Precio">
                                 <label for="precio">Precio</label>
@@ -74,6 +84,16 @@
                             </div>
                         </form>
                     </div>
+                </div>
+                <div class="row mb-3">   
+                    Filtrar Productos:
+                    <select class="form-control" id="categoriaFiltro" name="categoriaFiltro" onchange="filtrarProductos()">  
+                        <option value="">Categoria</option>
+                        <option value="comida">Comida</option>
+                        <option value="bebida">Bebidas</option>
+                        <option value="postre">Postre</option>
+                    </select>
+
                 </div>
                 <div id="ContenedorProductos">                    
                 </div>

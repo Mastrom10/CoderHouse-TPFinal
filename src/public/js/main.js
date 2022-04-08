@@ -1,4 +1,3 @@
-let admin = true;
 
 
 
@@ -7,10 +6,23 @@ window.onload = function () {
     CargarCarritos();
 }
 
-function CargarProductos() {
-    fetch(ApiHost + '/productos', {
+
+function filtrarProductos() {
+    let categoria = document.getElementById('categoriaFiltro').value;
+    CargarProductos(categoria);
+}
+
+
+
+function CargarProductos(categoria = "" ) {
+
+    let path = ApiHost + '/productos';
+    if (categoria != "") {
+        path += '/categoria/' + categoria;
+    }
+
+    fetch(path, {
         headers: {
-            'esAdmin': admin
         }
     })
         .then(res => res.json())
@@ -22,7 +34,8 @@ function CargarProductos() {
                 <div class="card mb-4 shadow-sm">
                     <img src="${producto.foto}" class="card-img-top p-3" style="width: 100%; height: 10vw;object-fit: scale-down;" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">${producto.nombre} <span class="text-success">$ ${producto.precio} </span></h5>
+                        <h4 class="card-title">${producto.nombre} <span class="text-success">$ ${producto.precio} </span></h4>
+                        <h5 class="text-info">${producto.categoria}</h5>
                         <p class="card-text">${producto.descripcion}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
@@ -43,7 +56,6 @@ function CargarProductos() {
 function CargarCarritos() {
     fetch(ApiHost + '/carrito',{
         headers: {
-            'esAdmin': admin
         }
     })
         .then(res => res.json())
@@ -56,6 +68,7 @@ function CargarCarritos() {
                     <div class="card-body">
                         <h5 class="card-title">Carrito Nro ${carrito.id}</h5>
                         <p class="card-text">Fecha de Creacion ${timeConverter(carrito.timestamp / 1000)}</p>
+                        <p class="card-text text-info">Usuario: ${carrito.user.email}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="SeleccionarCarrito(${carrito.id})">Seleccionar</button>
@@ -76,7 +89,6 @@ function borrarCarrito(id) {
     fetch(ApiHost + `/carrito/${id}`, {
         method: 'DELETE',
         headers: {
-            'esAdmin': admin
         }
     })
         .then(res => res.json())
@@ -86,11 +98,9 @@ function borrarCarrito(id) {
 }
 
 function crearCarrito() {
-    admin = document.getElementById('adminCheck').checked;
     fetch(ApiHost + '/carrito', {
         method: 'POST',
         headers: {
-            'esAdmin': admin
         }
     })
         .then(res => res.json())
@@ -113,14 +123,13 @@ function timeConverter(UNIX_timestamp) {
 }
 
 function GuardarProducto(form) {
-    admin = document.getElementById('adminCheck').checked;
-    console.log(admin);
     let producto = {
         id: form.id.value,
         nombre: form.nombre.value,
         descripcion: form.descripcion.value,
         precio: form.precio.value,
         foto: form.foto.value,
+        categoria: form.categoria.value,
         codigo: form.codigo.value,
         stock: form.stock.value
     }
@@ -131,7 +140,6 @@ function GuardarProducto(form) {
             body: JSON.stringify(producto),
             headers: {
                 'Content-Type': 'application/json',
-                'esAdmin': admin
             }
         })
             .then(
@@ -156,7 +164,6 @@ function GuardarProducto(form) {
             body: JSON.stringify(producto),
             headers: {
                 'Content-Type': 'application/json',
-                'esAdmin': admin
             }
         })
             .then(
@@ -193,7 +200,6 @@ let CarritoSeleccionado = 0;
 function SeleccionarCarrito(id) {
     fetch(ApiHost + `/carrito/${id}`, {
         headers: {
-            'esAdmin': admin
         }
     })
         .then(res => res.json())
@@ -230,7 +236,6 @@ function AgregarProductoCarritoSeleccionado(id) {
     fetch(ApiHost + `/productos/${id}`, {
         method: 'GET',
         headers: {
-            'esAdmin': admin
         }
     })
         .then(res => res.json())
@@ -248,7 +253,6 @@ function AgregarProductoCarritoSeleccionado(id) {
                 method: 'POST',
                 body: JSON.stringify(producto),
                 headers: {
-                    'esAdmin': admin,
                     'Content-Type': 'application/json'
                 }
             })
@@ -275,7 +279,6 @@ function QuitarProductoCarrito(id, idProducto) {
     fetch(ApiHost + `/carrito/${id}/productos/${idProducto}`, {
         method: 'DELETE',
         headers: {
-            'esAdmin': admin
         }
     })
         .then(
@@ -296,13 +299,11 @@ function QuitarProductoCarrito(id, idProducto) {
 }
 
 function EliminarProducto(id) {
-    let admin = document.getElementById('adminCheck').checked;
 
     fetch(ApiHost + `/productos/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'esAdmin': admin
         }
     })
         .then(

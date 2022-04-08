@@ -16,6 +16,7 @@ class RouterProductos {
         router.post('/', this.controlador.saveProducto);
         router.put('/:id', this.controlador.updateProducto);
         router.delete('/:id', this.controlador.deleteProducto);
+        router.get('/categoria/:categoria', this.controlador.getProductosByCategoria);
         return router;
     }
 

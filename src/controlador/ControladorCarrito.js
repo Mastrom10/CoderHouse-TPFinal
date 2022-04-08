@@ -29,7 +29,8 @@ export default class ControladorCarrito {
     saveCarrito = async (req, res) => {
         try {
             let carritoEnJson = req.body;
-            let CarritoGuardado = await this.carritoAPI.saveCarrito(carritoEnJson);
+            let usuario = req.user;
+            let CarritoGuardado = await this.carritoAPI.saveCarrito(carritoEnJson, usuario);
             res.json(CarritoGuardado);
         } catch (error) {
             res.status(400).json({ "error": error.message });

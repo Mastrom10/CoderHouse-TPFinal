@@ -48,6 +48,22 @@ export default class ProductosDaoMongoDB {
       throw error;
     }
   }
+  //Obtener Productos por Categoria
+  async getProductosByCategoria(categoria) {
+    try {
+      let productosJSON = await this.Producto_Collection.find({ categoria: categoria }).toArray();
+      let productos = [];
+      productosJSON.forEach(producto => {
+        productos.push(ProductoDTO.fromJSON(producto));
+      })
+      return productos;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+
 
   //Obtener ID siguiente de los Productos
   async getNextIdProducto() {
@@ -58,7 +74,7 @@ export default class ProductosDaoMongoDB {
         id = producto.id;
       }
     });
-    return id +1 ;
+    return id + 1;
 
   }
 

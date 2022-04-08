@@ -1,5 +1,6 @@
 import getUsuarioDAO from '../Model/DAOs/UsuarioFactory.js';
 import Usuario from '../Model/models/Usuario.js';
+import UsuarioDTO from '../Model/DTOs/UsuarioDTO.js';
 import Mailer from '../Middlewares/Mailer.js';
 
 
@@ -24,7 +25,8 @@ export default class UsuarioAPI {
         if (!usuario.hashPassword) {
             usuario.hashPassword = Usuario.createHash(usuario.password);
         }
-        const usuarioOBJ = Usuario.fromJSON(usuario);
+        const usuarioOBJ = UsuarioDTO.fromJSON(usuario);
+        this.ValidarUsuario(usuarioOBJ);
         let resultado = await this.dao.saveUsuario(usuarioOBJ);
         //enviar un mail si el resultado fue exitoso.
         if (resultado) {
@@ -38,6 +40,15 @@ export default class UsuarioAPI {
         }
 
         return usuarioOBJ;
+    }
+
+    ValidarUsuario(usuario) {
+        try {
+            Usuario.Validar(usuario);
+        } catch (error) {
+            throw error;
+        }
+
     }
 
 
