@@ -10,6 +10,12 @@ function getFormData(){
     return formData
 }
 
+window.onload = function () {
+    document.getElementById('lblversion').innerHTML = 'Version: ' + version;
+    document.getElementById('lblentorno').innerHTML = 'Entorno: ' + entorno;
+}
+
+    
 
 function Login() {
     fetch(ApiHost + '/auth/login', {
@@ -87,6 +93,7 @@ function ocultarRegistro(){
     document.getElementById('tituloRegistro').style.display = 'none';
     document.getElementById('tituloLogin').style.display = 'block';
     document.getElementById('campoTelefono').style.display = 'none';
+
 
 }
 

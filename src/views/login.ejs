@@ -14,7 +14,7 @@
     <h1>Portal de Login</h1>
 
     <form id="formLoginRegister">
-        <h3 class="text-center"  id="tituloLogin">Login</h3>
+        <h3 class="text-center" id="tituloLogin">Login</h3>
         <h3 class="text-center" id="tituloRegistro" style="display: none;">Registro Nuevo Usuario</h3>
         <div class="form-group">
             <label for="email">Email</label>
@@ -42,14 +42,32 @@
         <!-- button calcelar registo -->
         <div class="form-group mt-2" id="botonesRegistro" style="display: none;">
             <button type="button" class="btn btn-success" id="btnRegistro" onclick="Registro()">Registrar</button>
-            <button type="button" class="btn btn-danger ms-1" id="btnCancelarRegistro" onclick="ocultarRegistro()">Cancelar</button>
+            <button type="button" class="btn btn-danger ms-1" id="btnCancelarRegistro"
+                onclick="ocultarRegistro()">Cancelar</button>
         </div>
 
-        <div class="form-group mt-2" id="botonesLogin" >
-        <button type="button" class="btn btn-primary" id="btnLogin" onclick="Login()">Iniciar Sesion</button>
-        <button type="button" class="btn" onclick="mostrarRegistro()">Registrar Nueva Cuenta</button>
-         </div>
+        <div class="form-group mt-2" id="botonesLogin">
+            <button type="button" class="btn btn-primary" id="btnLogin" onclick="Login()">Iniciar Sesion</button>
+            <button type="button" class="btn" onclick="mostrarRegistro()">Registrar Nueva Cuenta</button>
+        </div>
     </form>
+
+    <!-- footer con info del sistema -->
+    <footer class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Sistema de ecommerce</h3>
+                    <p>
+                        <span id="lblversion" class="badge text-success">1.0</span>
+                        <span id="lblentorno" class="badge text-success">Desarrollo</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </footer>
+
 
     <script src="/js/entorno.js"></script>
     <script src='/js/login.js'></script>
