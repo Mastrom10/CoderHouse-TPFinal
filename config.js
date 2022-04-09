@@ -23,7 +23,8 @@ const config = {
         Carrito_Collection: 'Carrito',
         Producto_Collection: 'Producto',
         Usuario_Collection: 'usuarios',
-        Orden_Collection: 'Orden'
+        Orden_Collection: 'Orden',
+        Mensaje_Collection: 'Mensaje'
     },
     DB_Firebase: {
         databaseURL: "https://ecommerce-6dfbf.firebaseio.com",
