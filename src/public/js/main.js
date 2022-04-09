@@ -197,6 +197,7 @@ function actualizarIDCarritoSeleccionado(id) {
 }
 
 let CarritoSeleccionado = 0;
+
 function SeleccionarCarrito(id) {
     fetch(ApiHost + `/carrito/${id}`, {
         headers: {
@@ -321,4 +322,9 @@ function EliminarProducto(id) {
             CargarProductos();
         }
         ).catch(err => console.log(err))
+}
+
+
+function cerrarOrden(){
+    
 }

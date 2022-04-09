@@ -112,3 +112,32 @@ function JoinChat() {
 }
 
 
+
+/* 
+<input type="text" name="emailbuscar" id="emailbuscar" placeholder="eMail">
+        <input type="button"   class="btn btn-primary" onclick="BuscarMensajes()">
+
+*/
+function BuscarMensajes(){
+    const emailbuscar = document.getElementById('emailbuscar').value
+    fetch(ApiHost + '/chat/'+emailbuscar, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+        .then(res => {
+            if (res.error) {
+                console.log(res.error)
+                agregarErrorEnElChat(res.message)
+                return
+            }
+            console.log(res)
+            res.forEach(element => {
+                agregarLineaEnElChat(element.from + ': ' + element.mensaje)
+            });
+        })
+
+}
+
+

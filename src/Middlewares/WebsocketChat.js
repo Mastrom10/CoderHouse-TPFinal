@@ -1,5 +1,6 @@
-
+import MensajeAPI from "../api/MensajeAPI.js"
 const clientes = {}
+const api = new MensajeAPI();
 
 function chat(clientSocket) {
 
@@ -17,6 +18,7 @@ function chat(clientSocket) {
         console.log(mensajeconFrom)
         if (clientes[message.to]) {
             clientes[message.to].emit('newMessage', mensajeconFrom)
+            api.saveMensaje(mensajeconFrom)
         } else {
             clientSocket.emit('deliveryError', { "error": "No se encontro el destinatario" })
         }

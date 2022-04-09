@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import mensajeDTO from '../DTOs/mensajeDTO.js';
+import mensajeDTO from '../DTOs/MensajeDTO.js';
 
 export default class Mensaje {
 

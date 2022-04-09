@@ -13,6 +13,7 @@ import passport from './src/Middlewares/PassportSetUp.js';
 import routerAuth from './src/routers/routerAuth.js';
 import routerViews from './src/routers/routerViews.js';
 import RouterOrden from './src/routers/routerOrden.js';
+import RouterMensaje from './src/routers/routerMensaje.js';
 import config from './config.js';
 
 import WebsocketChatHandler from './src/Middlewares/WebsocketChat.js';
@@ -46,6 +47,7 @@ app.use('/api/carrito', checkAuthentication, new routerCarrito().getRouter())
 app.use('/api/productos', checkAuthentication, new routerProductos().getRouter())
 app.use('/api/auth', new routerAuth().getRouter())
 app.use('/api/orden', checkAuthentication, new RouterOrden().getRouter())
+app.use('/api/chat', checkAuthentication, new RouterMensaje().getRouter())
 app.use('/', new routerViews().getRouter()) //Para las vistas
 
 

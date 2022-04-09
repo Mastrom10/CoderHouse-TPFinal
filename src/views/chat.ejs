@@ -23,7 +23,16 @@
         <p>Si no tenés un JWT, primero deberás ir al Login para iniciar sesion</p>
         <a href="/login" class="btn btn-primary">ir a Login</a> 
         <br>
+        <br>
+        <br>
+        <p>Podes ver todos los mensajes de un usuario. ingrésa el mail del usuario y "Buscar"</p>
+        <input type="text" name="emailbuscar" id="emailbuscar" placeholder="eMail">
+        <input type="button" value="Cargar Mensajes de usuario"  class="btn btn-primary" onclick="BuscarMensajes()">
+        <br>
+
+
         <h2>Chat</h2>
+        
         <input type="text" name="emailto" placeholder="Para...">
         <input type="text" id="txtMensaje" placeholder="Escribe tu mensaje">
         <input type="button" id="btnEnviar" class="btn btn-primary" value="Enviar" onclick="EnviarMensaje()">
@@ -36,7 +45,7 @@
         </ul>
     </div>
 
-    <script src="js/entorno.js"></script>
+    <script src="/js/entorno.js"></script>
     <script src='/js/chat.js'></script>
 </body>
 

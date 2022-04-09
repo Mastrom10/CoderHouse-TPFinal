@@ -67,9 +67,10 @@ export default class MensajeDaoMongoDB {
 
     }
 
-    getMensajeByEmail = async (email) => {
+    getMensajesByEmail = async (email) => {
         try {
-            let MensajesJSON = await this.Mensaje_Collection.find({$or: [{ from: email }, { to: email }]});
+            //[{ from: email }, { to: email }]
+            let MensajesJSON = await this.Mensaje_Collection.find({ $or: [{ from: email }, { to: email }] }).toArray();
             let MensajesOBJ = [];
             if (MensajesJSON.length > 0) {
                 MensajesJSON.forEach(Mensaje => {

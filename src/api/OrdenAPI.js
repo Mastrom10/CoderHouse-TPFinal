@@ -41,7 +41,7 @@ export default class OrdenAPI {
     }
 
     async updateOrden(orden) {
-        this.ValidarOrden(orden);
+        Orden.Validar(orden);
         return this.dao.updateOrden(orden);
     }
 
